@@ -20,8 +20,10 @@
           console.log(blob);
           document.getElementById('rainbow').src = URL.createObjectURL(blob)
         })
+        .catch(error => {
+          console.error(error);
+        });
 
-      // live server
 
     </script>
   </body>
