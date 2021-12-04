@@ -5,12 +5,30 @@
     <title>Fetch JSON from API and map lat lon</title>
   </head>
   <body>
+    <h1>Where is the ISS?</h1>
+    <p>
+      latitude: <span id = "lat"></span><br>
+      longitude: <span id = "lon"></span><br>
+
+    </p>
+
+
     <script>
-      let pos = {
-        lat: -45,
-        lon:112
-      };
-      console.log(pos);
+      const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+      async function getISS() {
+        const response = await fetch(api_url);
+        const data = await response.json();
+        // js deconstrutor
+        const {latitude, longitude } = data;
+        document.getElementById('lat').textContent = latitude;
+        document.getElementById('lon').textContent = longitude;
+
+        console.log(latitude);
+        console.log(longitude);
+
+      }
+
+      getISS();
 
     </script>
 
