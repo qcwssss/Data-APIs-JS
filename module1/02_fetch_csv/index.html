@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    // Data from: https://data.giss.nasa.gov/gistemp/
+    // Mean from: https://earthobservatory.nasa.gov/world-of-change/DecadalTemp
+
+    getData();
+    async function getData() {
+      // read csv
+      const response = await fetch('test.csv');
+      const data = await response.text();
+      console.log(data);
+
+      // parse rows
+      const rows = data.split('\n').slice(1);
+      rows.forEach((elt) => {
+        const row = elt.split(',');
+        console.log(row);
+
+      });
+
+      console.log(rows);
+    }
+
+  </script>
+
+</body>
+
+</html>
