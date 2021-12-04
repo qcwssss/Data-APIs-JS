@@ -10,7 +10,7 @@
   <!-- Inline style css -->
   <style>
     #issMap {
-      height: 180px;
+      height: 400px;
     }
   </style>
 
@@ -30,14 +30,30 @@
 
 
   <script>
+    // Making a map and tiles
+    const myMap = L.map('issMap').setView([0, 0], 3);
 
-    const myMap = L.map('issMap').setView([51.505, -0.09], 13);
-    const attribution = ' &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+    const attribution = ' &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
     const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const tiles = L.tileLayer(tileUrl, {attribution});
+    const tiles = L.tileLayer(tileUrl, {
+      attribution
+    });
     tiles.addTo(myMap);
 
+
+    // Making a icon marker
+    const issIcon = L.icon({
+      iconUrl: 'iss320.png',
+      iconSize: [50, 32],
+      iconAnchor: [25, 16]
+    });
+
+    const marker = L.marker([0, 0], {
+      icon: issIcon
+    }).addTo(myMap);
+
+    // Get iss location from api
     const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
 
     async function getISS() {
@@ -48,9 +64,12 @@
         latitude,
         longitude
       } = data;
+
       document.getElementById('lat').textContent = latitude;
       document.getElementById('lon').textContent = longitude;
 
+      // let marker = L.marker([latitude, longitude]).addTo(myMap);
+      marker.setLatLng([latitude, longitude]);
       console.log(latitude);
       console.log(longitude);
 
