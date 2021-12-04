@@ -15,21 +15,22 @@
     getData();
     async function getData() {
       // read csv
-      const response = await fetch('test.csv');
+      const response = await fetch('ZonAnn.Ts+dSST.csv');
       const data = await response.text();
-      console.log(data);
+      // console.log(data);
 
       // parse rows
-      const rows = data.split('\n').slice(1);
-      rows.forEach((elt) => {
-        const row = elt.split(',');
-        console.log(row);
+      const table = data.split('\n').slice(1);
+      table.forEach((row) => {
+        const columns = row.split(',');
+        const year = columns[0];
+        const temp = columns[1];
+        console.log(year, temp);
+
 
       });
 
-      console.log(rows);
     }
-
   </script>
 
 </body>
