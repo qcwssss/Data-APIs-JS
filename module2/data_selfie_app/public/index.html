@@ -9,6 +9,14 @@
 </head>
 
 <body>
+
+    <h1>Data Selfie App</h1>
+    <p>
+        latitude: <span id="latitude"></span>&deg;<br>
+        longitude: <span id="longitude"></span>&deg;<br>
+    </p>
+    <button id='geolocate'>geolocate</button>
+
     <script>
         document.getElementById('geolocate').addEventListener('click', event => {
 
@@ -42,12 +50,7 @@
         });
     </script>
 
-    <h1>Data Selfie App</h1>
-    <p>
-        latitude: <span id="latitude"></span>&deg;<br>
-        longitude: <span id="longitude"></span>&deg;<br>
-    </p>
-    <button id='geolocate'>geolocate</button>
+
 </body>
 
 </html>
