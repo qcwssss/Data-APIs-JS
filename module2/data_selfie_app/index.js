@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const Datastore = require('nedb');
 
@@ -11,7 +12,17 @@ app.use(express.json({ limit : '1mb'}));
 const  database = new Datastore('database.db');
 database.loadDatabase();
 
+app.get('/api', (request, response) => {
+    database.find({}, (err, data) => {
+        if(err) {
+            console.log(err);
+            response.end();
+            return;
+        }
+        response.json(data);
 
+    });
+})
 
 app.post('/api', (request, response) => {
     console.log('I got a request!');
@@ -25,6 +36,8 @@ app.post('/api', (request, response) => {
         status: 'success',
         timestamp: timestamp,
         latitude: data.lat,
-        longitute: data.lon
+        longitute: data.lon,
+        vegetable: data.vegetable
+
     });
 })
