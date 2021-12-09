@@ -37,7 +37,7 @@ app.post('/api', (request, response) => {
         timestamp: timestamp,
         latitude: data.lat,
         longitute: data.lon,
-        vegetable: data.vegetable
+        mood: data.mood
 
     });
 })
