@@ -1,16 +1,16 @@
 getData();
 
 
-$('#time').click(function() {
-        sortData((a, b) => b.time - a.time);
-});
+// $('#time').click(function() {
+//         sortData((a, b) => b.time - a.time);
+// });
 
-$('#mood').click(function() {
-    sortData((a, b) => {
-        if (b.mood > a.mood) return -1;
-        else return 1;
-    });
-});
+// $('#mood').click(function() {
+//     sortData((a, b) => {
+//         if (b.mood > a.mood) return -1;
+//         else return 1;
+//     });
+// });
 
 async function getData() {
     const response = await fetch('/api');
@@ -23,7 +23,7 @@ async function getData() {
         const date = document.createElement('div');
         const image = document.createElement('img');
 
-        mood.textContent = `mood: ${item.vegetable}`;
+        mood.textContent = `mood: ${item.mood}`;
         geo.textContent = `${item.lat}°, ${item.lon}°`;
         const dateString = new Date(item.timestamp).toLocaleString();
         data.textContent = dateString;
