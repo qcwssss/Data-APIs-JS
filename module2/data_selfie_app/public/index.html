@@ -5,49 +5,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
     <title>Document</title>
 </head>
 
 <body>
 
     <h1>Data Selfie App</h1>
+    <div><a href="/">enter</a> | <a href="/logs">logs</a></div>
     <p>
         latitude: <span id="latitude"></span>&deg;<br>
         longitude: <span id="longitude"></span>&deg;<br>
     </p>
-    <label for="vegetable">Enter your favorite vegetable</label>
-    <input id="vegetable" value = "lettuce" />
+    <label for="mood">Enter your mood</label>
+    <input id="mood" value="amazing" />
     <button id='submit'>submit</button>
 
     <script>
-        let lat, lon;
-        const button = document.getElementById('submit');
-        button.addEventListener('click', async event => {
-            const vegetable = document.getElementById('vegetable').value;
-            const data = { lat, lon, vegetable };
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }
-            const response = await fetch('api/', options);
-            const json = await response.json();
-            console.log(json);
-        });
-
-
-        if ('geolocation' in navigator) {
-            console.log('geolocation is available');
-            navigator.geolocation.getCurrentPosition(async position => {
-                lat = position.coords.latitude;
-                lon = position.coords.longitude;
-                document.getElementById('latitude').textContent = lat;
-                document.getElementById('longitude').textContent = lon;
+        function setup() {
+            let lat, lon;
+            const button = document.getElementById('submit');
+            button.addEventListener('click', async event => {
+                const mood = document.getElementById('mood').value;
+                const data = {
+                    lat,
+                    lon,
+                    vegetable
+                };
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+                const response = await fetch('api/', options);
+                const json = await response.json();
+                console.log(json);
             });
-        } else {
-            console.log('geolocation IS NOT available');
+
+
+            if ('geolocation' in navigator) {
+                console.log('geolocation is available');
+                navigator.geolocation.getCurrentPosition(async position => {
+                    lat = position.coords.latitude;
+                    lon = position.coords.longitude;
+                    document.getElementById('latitude').textContent = lat;
+                    document.getElementById('longitude').textContent = lon;
+                });
+            } else {
+                console.log('geolocation IS NOT available');
+            }
+
+            // background(255, 0, 0);
+            noCanvas();
+            const video = createCapture(VIDEO);
+
         }
     </script>
 
