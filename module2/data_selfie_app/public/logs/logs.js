@@ -1,16 +1,27 @@
 getData();
 
+const selfies = [];
 
-// $('#time').click(function() {
-//         sortData((a, b) => b.time - a.time);
-// });
+document.getElementById('time').addEventListener('click', event => {
+    sortData((a, b) => b.time - a.time);
+});
 
-// $('#mood').click(function() {
-//     sortData((a, b) => {
-//         if (b.mood > a.mood) return -1;
-//         else return 1;
-//     });
-// });
+document.getElementById('mood').addEventListener('click', event => {
+    sortData((a, b) => {
+        if (b.mood > a.mood) return -1;
+        else return 1;
+    });
+});
+
+function sortData(compare) {
+    for (let item of selfies) {
+        item.elt.remove();
+    }
+    selfies.sort(compare);
+    for (let item of selfies) {
+        document.body.append(item.elt);
+    }
+}
 
 async function getData() {
     const response = await fetch('/api');
@@ -26,7 +37,7 @@ async function getData() {
         mood.textContent = `mood: ${item.mood}`;
         geo.textContent = `${item.lat}°, ${item.lon}°`;
         const dateString = new Date(item.timestamp).toLocaleString();
-        data.textContent = dateString;
+        date.textContent = dateString;
         image.src = item.image64;
         image.alt = "Someone is making a selfie";
 
