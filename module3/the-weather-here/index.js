@@ -1,6 +1,9 @@
 const express = require('express');
 const Datastore = require('nedb');
 // const fetch = require('node-fetch');
+// import fetch from 'node-fetch';
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+require('dotenv').config();
 
 const app = express();
 app.listen(3000, () => console.log('Starting server: http://localhost:3000'));
@@ -28,9 +31,12 @@ app.post('/api', (request, response) => {
   response.json(data);
 });
 
-// app.get('/weather', async (request, response) => {
-//   const api_url = `https://api.darksky.net/forecast/08fe01a78943266193fc7a23625f68fa/37.8267,-122.4233`;
-//   const fetch_response = await fetch(api_url);
-//   const json = await fetch_response.json();
-//   response.json(json);
-// });
+app.get('/weather', async (request, response) => {
+    const API_KEY = process.env.API_KEY;
+    let lat = 49.2, lon = -122.99;
+    const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+    // api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid={API key}
+    const fetch_response = await fetch(api_url);
+    const json = await fetch_response.json();
+    response.json(json);
+});
