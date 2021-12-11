@@ -2,14 +2,11 @@ getData();
 
 const selfies = [];
 
-document.getElementById('time').addEventListener('click', event => {
-    console.log("time clicked");
+$('#time').click(function () {
     sortData((a, b) => b.time - a.time);
-    console.log("is it sort?");
-
 });
 
-document.getElementById('mood').addEventListener('click', event => {
+$('#mood').click(function () {
     sortData((a, b) => {
         if (b.mood > a.mood) return -1;
         else return 1;
@@ -17,17 +14,13 @@ document.getElementById('mood').addEventListener('click', event => {
 });
 
 function sortData(compare) {
-    console.log("button clicked, is it sort?");
 
     for (let item of selfies) {
         item.elt.remove();
-        console.log("remove");
-
     }
     selfies.sort(compare);
     for (let item of selfies) {
         document.body.append(item.elt);
-        console.log("append");
     }
 }
 
@@ -50,9 +43,13 @@ async function getData() {
         image.alt = "Someone is making a selfie";
 
         root.append(mood, geo, date, image);
-        
+
         // sort
-        selfies.push({ elt: root, time: item.timestamp, mood: item.mood });
+        selfies.push({
+            elt: root,
+            time: item.timestamp,
+            mood: item.mood
+        });
         document.body.append(root);
 
     }

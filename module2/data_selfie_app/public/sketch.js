@@ -6,10 +6,12 @@ function setup() {
     let lat, lon;
     const button = document.getElementById('submit');
     button.addEventListener('click', async event => {
-        const mood = document.getElementById('mood').value;
-        
+        const mood = document.getElementById('mood').value;        
         // load image to base64
         video.loadPixels();
+        console.log(video.elt);
+        // save(video, 'myImage.png');
+
         const image64 = video.canvas.toDataURL();                
         const data = { lat, lon, mood, image64 };
         const options = {
@@ -22,6 +24,13 @@ function setup() {
         const response = await fetch('api/', options);
         const json = await response.json();
         console.log(json);
+
+        // var base64Data = image64.replace(/^data:image\/png;base64,/, "");
+
+        // require("fs").writeFile(mood + ".png", base64Data, 'base64', function(err) {
+        //     console.log(err);
+        // });
+        // file_put_contents('img.png', base64_decode(image64));
     });
 
 
