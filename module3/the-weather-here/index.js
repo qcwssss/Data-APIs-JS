@@ -41,9 +41,19 @@ app.get('/weather/:latlon', async (request, response) => {
     console.log(latlon);
     console.log(lat, lon);
 
-    const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`;
-    // api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid={API key}
-    const fetch_response = await fetch(api_url);
-    const json = await fetch_response.json();
-    response.json(json);
+    const weather_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`;
+    const weather_response = await fetch(weather_url);
+    const weather_data = await weather_response.json();
+
+    const aq_url = `https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/latest?coordinates=${lat},${lon}`;
+    console.log(aq_url);
+    const aq_response = await fetch(aq_url);
+    const aq_data = await aq_response.json();
+
+    const data = {
+      weather: weather_data,
+      air_quality: aq_data
+    };
+
+    response.json(data);
 });

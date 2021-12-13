@@ -12,9 +12,12 @@ if ('geolocation' in navigator) {
     const api_url = `weather/${lat},${lon}`;
     const response = await fetch(api_url);
     const json = await response.json();
-    $('#summary')[0].textContent = json.weather[0].main;
-    $('#temperature')[0].textContent = json.main.temp;
     console.log(json);
+
+    const weather = json.weather;
+    const air = json.air_quality;
+    $('#summary')[0].textContent = weather.weather[0].main;
+    $('#temperature')[0].textContent = weather.main.temp;
   });
 } else {
   console.log('geolocation not available');
