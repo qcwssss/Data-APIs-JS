@@ -46,7 +46,6 @@ app.get('/weather/:latlon', async (request, response) => {
     const weather_data = await weather_response.json();
 
     const aq_url = `https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/latest?coordinates=${lat},${lon}`;
-    console.log(aq_url);
     const aq_response = await fetch(aq_url);
     const aq_data = await aq_response.json();
 
