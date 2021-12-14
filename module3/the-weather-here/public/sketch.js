@@ -25,6 +25,18 @@ if ('geolocation' in navigator) {
     $('#aq_value')[0].textContent = air.value;
     $('#aq_unit')[0].textContent = air.unit;
     $('#aq_date')[0].textContent = air.lastUpdated;
+
+    const data = { lat, lon, weather, air };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    const db_response = await fetch('/api', options);
+    const db_json = await db_response.json();
+    console.log(db_json);
     } catch(error) {
       console.log(error);
       air = { value: -1 };
@@ -37,18 +49,3 @@ if ('geolocation' in navigator) {
   console.log('geolocation not available');
 }
 
-// Handle button presses, submit data to database.
-const button = document.getElementById('checkin');
-button.addEventListener('click', async event => {
-  const data = { lat, lon };
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  };
-  const response = await fetch('/api', options);
-  const json = await response.json();
-  console.log(json);
-});
